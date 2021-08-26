@@ -77,10 +77,12 @@ const App = () => {
     }
   })
 
+  const windowWidth = process.stdout.columns
+  const windowHeight = process.stdout.rows
   const leftColumnSize = 10
 
   return (
-    <Box flexDirection="column">
+    <Box height={windowHeight} flexDirection="column">
       <Text bold>{sample.header}</Text>
       <Box flexDirection="row">
         <Box
@@ -107,7 +109,8 @@ const App = () => {
           <Text>{sample.rightPreview[4].preview}</Text>
         </Box>
       </Box>
-      <Box justifyContent="space-between" alignItems="flex-end">
+      <Box flexGrow={1} />
+      <Box justifyContent="space-between">
         <Text>{sample.footer.leftSide}</Text>
         <Text>{sample.footer.rightSide}</Text>
       </Box>

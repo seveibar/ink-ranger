@@ -36,15 +36,23 @@ const sample = {
     "react-install-render",
   ],
   middleColumn: [
-    { label: "node_modules", size: "514" },
-    { label: "cli.js", size: "379 B" },
-    { label: "package.json", size: "939 B" },
-    { label: "README.md", size: "337 B" },
-    { label: "test.js", size: "428 B" },
-    { label: "ui.js", size: "1.11 K" },
-    { label: "yarn.lock", size: "246 K" },
+    { id: 1, label: "node_modules", size: "514" },
+    { id: 2, label: "cli.js", size: "379 B" },
+    { id: 3, label: "package.json", size: "939 B" },
+    { id: 4, label: "README.md", size: "337 B" },
+    { id: 5, label: "test.js", size: "428 B" },
+    { id: 6, label: "ui.js", size: "1.11 K" },
+    { id: 7, label: "yarn.lock", size: "246 K" },
   ],
-  rightPreview: require("fs").readFileSync("./test.js").toString(),
+  rightPreview: [
+    { id: 1, preview: "Some preview 1" },
+    { id: 2, preview: "Some preview 2" },
+    { id: 3, preview: "Some preview 3" },
+    { id: 4, preview: "Some preview 4" },
+    { id: 5, preview: require("fs").readFileSync("./test.js").toString() },
+    { id: 6, preview: "Some preview 6" },
+    { id: 7, preview: "Some preview 7" },
+  ],
   footer: {
     leftSide: "-rw-r--r-- 1 seve seve 428B",
     rightSide: "249K sum, 18.9G free 5/7 All",
@@ -96,8 +104,12 @@ const App = () => {
           ))}
         </Box>
         <Box flexDirection="column" marginLeft={1} flexGrow={0.25}>
-          <Text>{sample.rightPreview}</Text>
+          <Text>{sample.rightPreview[4].preview}</Text>
         </Box>
+      </Box>
+      <Box justifyContent="space-between" alignItems="flex-end">
+        <Text>{sample.footer.leftSide}</Text>
+        <Text>{sample.footer.rightSide}</Text>
       </Box>
     </Box>
   )
@@ -105,10 +117,21 @@ const App = () => {
 
 const Item = ({ label, size }) => {
   const { isFocused } = useFocus()
+  const itemBackgroundColor = label.includes(".") ? "green" : "blue"
+
   return (
     <Box justifyContent="space-between" flexDirection="row">
-      <Text backgroundColor={isFocused && "gray"}>{label}</Text>
-      <Text flexShrink={0} backgroundColor={isFocused && "gray"}>
+      <Text
+        color={isFocused && "#fff"}
+        backgroundColor={isFocused && itemBackgroundColor}
+      >
+        {label + "                                                   "}
+      </Text>
+      <Text
+        flexShrink={0}
+        color={isFocused && "#fff"}
+        backgroundColor={isFocused && itemBackgroundColor}
+      >
         {size}
       </Text>
     </Box>

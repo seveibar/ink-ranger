@@ -79,28 +79,20 @@ const App = () => {
 
   const windowWidth = process.stdout.columns
   const windowHeight = process.stdout.rows
-  const leftColumnSize = 10
+  const leftColumnSize = windowWidth / 4 - 2
+  const middleColumnSize = windowWidth / 2 - 2
+  const rightColumnSize = windowWidth / 4 - 1
 
   return (
     <Box height={windowHeight} flexDirection="column">
       <Text bold>{sample.header}</Text>
       <Box flexDirection="row">
-        <Box
-          flexDirection="column"
-          flexShrink={0}
-          marginRight={1}
-          marginLeft={1}
-        >
+        <Box flexDirection="column" marginRight={1} marginLeft={1}>
           {sample.leftColumn.map((t) => (
             <Text key={t}>{t.length > 10 ? t.slice(0, 9) + "~" : t}</Text>
           ))}
         </Box>
-        <Box
-          flexDirection="column"
-          marginLeft={1}
-          marginRight={1}
-          flexGrow={0.5}
-        >
+        <Box flexDirection="column" marginLeft={1} marginRight={1}>
           {sample.middleColumn.map((item) => (
             <Item key={item.label} label={item.label} size={item.size} />
           ))}
